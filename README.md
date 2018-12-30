@@ -23,7 +23,9 @@ docker run -it --rm --cap-add sys_module -v /lib/modules:/lib/modules wireguard:
 docker run --cap-add net_admin --cap-add sys_module -v <config volume or host dir>:/etc/wireguard -p <externalport>:<dockerport>/udp wireguard:local
 ```
 Example:
+```
 docker run --cap-add net_admin --cap-add sys_module -v wireguard_conf:/etc/wireguard -p 5555:5555/udp wireguard:local
+```
 ### Generate Keys
 This shortcut can be used to generate and display public/private key pairs to use for the server or clients
 ```
@@ -55,3 +57,6 @@ Endpoint = <server_public_ip>:5555
 AllowedIPs = 0.0.0.0/0,::/0 #makes sure ALL traffic routed through VPN
 PersistentKeepalive = 25
 ```
+## Other Notes
+- This Docker image also has a iptables NAT (MASQUERADE) rule already configured to make traffic through the VPN to the Internet work.
+- For some clients (a GL.inet) router in my case, you may have trouble with HTTPS (SSL/TLS) due to the MTU on the VPN. Ping and HTTP work fine but HTTPS does not for some sites. This can be fixed with [MSS Clamping](https://www.tldp.org/HOWTO/Adv-Routing-HOWTO/lartc.cookbook.mtu-mss.html). This is simply a checkbox in the OpenWRT Firewall settings interface.
