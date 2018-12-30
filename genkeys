@@ -1,0 +1,8 @@
+#!/bin/bash
+
+priv=`wg genkey`
+pub=`echo $priv | wg pubkey`
+
+echo -e "Private Key:\t$priv"
+echo -e "Public Key:\t$pub"
+
