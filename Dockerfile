@@ -7,9 +7,6 @@ RUN apt update && \
  apt install -y --no-install-recommends wireguard-tools iptables nano net-tools && \
  apt clean
 
-COPY sample-server.conf /etc/wireguard/
-
-
 WORKDIR /scripts
 ENV PATH="/scripts:${PATH}"
 COPY install-module /scripts
