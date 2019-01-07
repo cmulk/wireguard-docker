@@ -15,14 +15,14 @@ for interface in $interfaces; do
     wg-quick up $interface
 done
 
-# Add masquerade rule for NAT`ing VPN traffic bound for the Internet
+# Add masquerade rule for NAT'ing VPN traffic bound for the Internet
 echo "Adding iptables NAT rule"
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 
 # Handle shutdown behavior
 finish () {
+    echo "$(date): Shutting down Wireguard"
     for interface in $interfaces; do
-        echo "$(date): Shutting down Wireguard"
         wg-quick down $interface
     done
     iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
