@@ -59,7 +59,7 @@ PersistentKeepalive = 25
 ```
 ## Other Notes
 - This Docker image also has a iptables NAT (MASQUERADE) rule already configured to make traffic through the VPN to the Internet work.
-- For some clients (a GL.inet) router in my case, you may have trouble with HTTPS (SSL/TLS) due to the MTU on the VPN. Ping and HTTP work fine but HTTPS does not for some sites. This can be fixed with [MSS Clamping](https://www.tldp.org/HOWTO/Adv-Routing-HOWTO/lartc.cookbook.mtu-mss.html). This is simply a checkbox in the OpenWRT Firewall settings interface.
+- For some clients (a GL.inet router in my case) you may have trouble with HTTPS (SSL/TLS) due to the MTU on the VPN. Ping and HTTP work fine but HTTPS does not for some sites. This can be fixed with [MSS Clamping](https://www.tldp.org/HOWTO/Adv-Routing-HOWTO/lartc.cookbook.mtu-mss.html). This is simply a checkbox in the OpenWRT Firewall settings interface.
 
 ## docker-compose
 Sample docker-compose.yml
