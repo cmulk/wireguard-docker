@@ -29,7 +29,7 @@ docker run --cap-add net_admin --cap-add sys_module -v wireguard_conf:/etc/wireg
 ### Generate Keys
 This shortcut can be used to generate and display public/private key pairs to use for the server or clients
 ```
-docker -it --rm wireguard:local genkeys
+docker run -it --rm wireguard:local genkeys
 ```
 
 ## Configuration
