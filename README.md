@@ -16,21 +16,21 @@ docker build -t wireguard:local github.com/cmulk/wireguard-docker
 ### First Run
 If the wireguard kernel module is not already installed on the __host__ system, use this first run command to install it:
 ```
-docker run -it --rm --cap-add sys_module -v /lib/modules:/lib/modules cmulk/wireguard-docker:stretch install-module
+docker run -it --rm --cap-add sys_module -v /lib/modules:/lib/modules cmulk/wireguard-docker:buster install-module
 ```
 
 ### Normal Run
 ```
-docker run --cap-add net_admin --cap-add sys_module -v <config volume or host dir>:/etc/wireguard -p <externalport>:<dockerport>/udp cmulk/wireguard-docker:stretch
+docker run --cap-add net_admin --cap-add sys_module -v <config volume or host dir>:/etc/wireguard -p <externalport>:<dockerport>/udp cmulk/wireguard-docker:buster
 ```
 Example:
 ```
-docker run --cap-add net_admin --cap-add sys_module -v wireguard_conf:/etc/wireguard -p 5555:5555/udp cmulk/wireguard-docker:stretch
+docker run --cap-add net_admin --cap-add sys_module -v wireguard_conf:/etc/wireguard -p 5555:5555/udp cmulk/wireguard-docker:buster
 ```
 ### Generate Keys
 This shortcut can be used to generate and display public/private key pairs to use for the server or clients
 ```
-docker run -it --rm cmulk/wireguard-docker:stretch genkeys
+docker run -it --rm cmulk/wireguard-docker:buster genkeys
 ```
 
 ## Configuration
@@ -68,7 +68,7 @@ Sample docker-compose.yml
 version: "2"
 services:
  vpn:
-  image: cmulk/wireguard-docker:stretch
+  image: cmulk/wireguard-docker:buster
   volumes:
    - data:/etc/wireguard
   networks:
