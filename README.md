@@ -9,11 +9,6 @@ This docker image and configuration is my simple version of a wireguard personal
 
 In my use case, I'm running the wireguard docker image on a free-tier Google Cloud Platform debian virtual machine and connect to it with Android, Linux, and a GL-Inet router as clients.
 
-## Build
-```
-docker build -t wireguard:local github.com/cmulk/wireguard-docker
-```
-
 ## Run
 ### First Run
 If the wireguard kernel module is not already installed on the __host__ system, use this first run command to install it:
@@ -88,4 +83,15 @@ networks:
 volumes:
  data:
   driver: local
+```
+## Build
+Since the images are already on Docker Hub, you only need to do this if you want to change something
+```
+git clone https://github.com/cmulk/wireguard-docker.git
+cd wireguard-docker
+git checkout stretch 
+##OR##
+git checkout buster
+
+docker build -t wireguard:local .
 ```
