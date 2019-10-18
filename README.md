@@ -2,7 +2,6 @@
 Wireguard setup in Docker on Debian  kernel meant for a simple personal VPN.
 There are currently 2 branches, __stretch__ and __buster__. Use the branch that corresponds to your host machine if the kernel module install feature is going to be used.
 
-_Note that the stretch version currently does not work with kernel 4.9.0-9 on the host system due to a bug in that kernel version. Please use 4.9.0-8 instead._
 
 ## Overview
 This docker image and configuration is my simple version of a wireguard personal VPN, used for the goal of security over insecure (public) networks, not necessarily for Internet anonymity. The docker images uses debian stable, and the host OS must also use the debian stable kernel, since the image will build the wireguard kernel modules on first run. As such, the hosts /lib/modules directory also needs to be mounted to the container on the first run to install the module (see the Running section below). Thanks to [activeeos/wireguard-docker](https://github.com/activeeos/wireguard-docker) for the general structure of the docker image. It is the same concept just built on Ubuntu 16.04.
