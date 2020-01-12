@@ -1,4 +1,4 @@
 #!/bin/bash
 
 apt update
-apt install -y wireguard-dkms
+apt install -y linux-headers-cloud-amd64 linux-headers-amd64 wireguard-dkms
