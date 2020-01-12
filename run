@@ -9,15 +9,18 @@ if [[ -z $interfaces ]]; then
     exit 1
 fi
 
-
+# Bring up every interfaces that is found
 for interface in $interfaces; do
     echo "$(date): Starting Wireguard $interface"
     wg-quick up $interface
 done
 
 # Add masquerade rule for NAT'ing VPN traffic bound for the Internet
-echo "Adding iptables NAT rule"
-iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+# Masquerade is only added if env flag is set to 1
+if [[ $IPTABLES_MASQ -eq 1 ]]; then
+    echo "Adding iptables NAT rule"
+    iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+fi
 
 # Handle shutdown behavior
 finish () {
@@ -25,7 +28,10 @@ finish () {
     for interface in $interfaces; do
         wg-quick down $interface
     done
-    iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
+    if [[ $IPTABLES_MASQ -eq 1 ]]; then
+        iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
+    fi
+
     exit 0
 }
 
