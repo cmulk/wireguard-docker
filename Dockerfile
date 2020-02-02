@@ -6,7 +6,9 @@ RUN echo "deb http://deb.debian.org/debian/ unstable main" > /etc/apt/sources.li
 
 # Install wireguard packges
 RUN apt update && \
- apt install -y --no-install-recommends wireguard-tools iptables nano net-tools && \
+ apt install -y --no-install-recommends wireguard-tools iptables nano net-tools procps && \
+ echo "resolvconf resolvconf/linkify-resolvconf boolean false" | debconf-set-selections && \
+ apt install -y resolvconf && \
  apt clean
 
 # Add main work dir to PATH
