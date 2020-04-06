@@ -1,6 +1,23 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 apt update
 
-# make sure build happens for regular headers and cloud headers
-apt install -y linux-headers-cloud-amd64 linux-headers-amd64 wireguard-dkms
+UNAME=$(uname -r)
+GENMODS=$(apt list linux-headers-generic 2>/dev/null |grep -v Listing)
+ISTALL=""
+
+if [ -n "${GENMODS}" ]; then
+	# If `linux-headers-generic` is available, we are Ubuntu
+	INSTALL="linux-headers-${UNAME} linux-headers-generic wireguard-dkms"
+else
+	# If `linux-headers-generic` is not available, we are Debian
+	INSTALL="linux-headers-${UNAME} linux-headers-amd64 wireguard-dkms"
+fi
+
+if [ -n "${INSTALL}" ]; then
+	# Use the defined packages
+	apt install -y ${INSTALL}
+else
+	# No package architecture, default to cloud
+	apt install -y linux-headers-cloud-amd64 linux-headers-amd64 wireguard-dkms
+fi
