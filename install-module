@@ -4,7 +4,7 @@ apt update
 
 UNAME=$(uname -r)
 GENMODS=$(apt list linux-headers-generic 2>/dev/null |grep -v Listing)
-ISTALL=""
+INSTALL=""
 
 if [ -n "${GENMODS}" ]; then
 	# If `linux-headers-generic` is available, we are Ubuntu
