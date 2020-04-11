@@ -1,4 +1,12 @@
 #!/bin/bash
 
 apt update
-apt install -y linux-headers-cloud-amd64 linux-headers-amd64 wireguard-dkms
+
+# get kernel version
+KVER=`uname -r`
+
+# install headers
+apt install -y linux-headers-$KVER
+
+# install and build with wireguard-dkms
+apt install -y --no-install-recommends wireguard-dkms
