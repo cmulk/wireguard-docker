@@ -1,12 +1,12 @@
 #!/bin/bash
 
-apt update
+apt-get update
 
 # get kernel version
 KVER=`uname -r`
 
 # install headers
-apt install -y linux-headers-$KVER
+apt-get install -y linux-headers-$KVER
 
 # install and build with wireguard-dkms
-apt install -y --no-install-recommends wireguard-dkms
+apt-get install -y --no-install-recommends wireguard-dkms
