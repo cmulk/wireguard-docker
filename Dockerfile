@@ -1,6 +1,6 @@
 FROM debian:buster
 
-# Add debian unstable repo for wireguard packages
+# Add debian backports repo for wireguard packages
 RUN echo "deb http://deb.debian.org/debian/ buster-backports main" > /etc/apt/sources.list.d/buster-backports.list
 
 # Install wireguard packges
