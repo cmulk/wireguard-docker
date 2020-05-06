@@ -9,4 +9,4 @@ KVER=`uname -r`
 apt-get install -y linux-headers-$KVER
 
 # install and build with wireguard-dkms
-apt-get install -y --no-install-recommends wireguard-dkms
+apt-get install -y --no-install-recommends wireguard-dkms bc
