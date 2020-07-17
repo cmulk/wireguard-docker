@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 priv=`wg genkey`
 pub=`echo $priv | wg pubkey`
