@@ -8,5 +8,11 @@ KVER=`uname -r`
 # install headers
 apt-get install -y linux-headers-$KVER
 
+if [ $? -ne 0 ]; then
+    echo "Unable to find kernel headers for running kernel: $KVER"
+    echo "Wireguard kernel module install failed."
+    exit 1
+fi
+
 # install and build with wireguard-dkms
 apt-get install -y --no-install-recommends wireguard-dkms bc
