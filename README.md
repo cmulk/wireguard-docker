@@ -13,7 +13,7 @@ This docker image and configuration is my simple version of a wireguard personal
 In my use case, I'm running the wireguard docker image on a free-tier Google Cloud Platform debian virtual machine and connect to it with Android, Linux, and a GL-Inet router as clients.
 
 ## Running
-### First Run (strech or buster only)
+### First Run (stretch or buster only)
 If the wireguard kernel module is not already installed on the __host__ system, use this first run command to install it:
 ```
 docker run -it --rm --cap-add sys_module -v /lib/modules:/lib/modules cmulk/wireguard-docker:buster install-module
