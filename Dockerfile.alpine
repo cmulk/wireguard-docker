@@ -1,7 +1,7 @@
 FROM alpine:latest
 
 # Install wireguard packges
-RUN apk --no-cache add wireguard-tools iptables ip6tables
+RUN apk --no-cache add wireguard-tools iptables ip6tables inotify-tools
 
 # Add main work dir to PATH
 WORKDIR /scripts
