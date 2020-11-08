@@ -44,7 +44,12 @@ finish () {
 
 trap finish TERM INT QUIT
 
-while inotifywait -e modify -e create /etc/wireguard; do
-    stop_interfaces
-    start_interfaces
-done
+if [ -z "$WATCH_CHANGES" ]; then
+    sleep infinity &
+    wait $!
+else
+    while inotifywait -e modify -e create /etc/wireguard; do
+        stop_interfaces
+        start_interfaces
+    done
+fi
