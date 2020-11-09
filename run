@@ -9,10 +9,20 @@ if [ -z $interfaces ]; then
     exit 1
 fi
 
-for interface in $interfaces; do
-    echo "$(date): Starting Wireguard $interface"
-    wg-quick up $interface
-done
+start_interfaces() {
+    for interface in $interfaces; do
+        echo "$(date): Starting Wireguard $interface"
+        wg-quick up $interface
+    done
+}
+
+stop_interfaces() {
+    for interface in $interfaces; do
+        wg-quick down $interface
+    done
+}
+
+start_interfaces
 
 # Add masquerade rule for NAT'ing VPN traffic bound for the Internet
 
@@ -24,9 +34,7 @@ fi
 # Handle shutdown behavior
 finish () {
     echo "$(date): Shutting down Wireguard"
-    for interface in $interfaces; do
-        wg-quick down $interface
-    done
+    stop_interfaces
     if [ $IPTABLES_MASQ -eq 1 ]; then
         iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
     fi
@@ -36,5 +44,12 @@ finish () {
 
 trap finish TERM INT QUIT
 
-sleep infinity &
-wait $!
+if [ $WATCH_CHANGES -eq 0 ]; then
+    sleep infinity &
+    wait $!
+else
+    while inotifywait -e modify -e create /etc/wireguard; do
+        stop_interfaces
+        start_interfaces
+    done
+fi
