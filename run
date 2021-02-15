@@ -29,6 +29,7 @@ start_interfaces
 if [ $IPTABLES_MASQ -eq 1 ]; then
     echo "Adding iptables NAT rule"
     iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+    ip6tables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 fi
 
 # Handle shutdown behavior
@@ -37,6 +38,7 @@ finish () {
     stop_interfaces
     if [ $IPTABLES_MASQ -eq 1 ]; then
         iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
+        ip6tables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
     fi
 
     exit 0
